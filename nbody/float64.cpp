@@ -34,10 +34,9 @@ void addPoint(Point & p, double dx, double dy) {
 }
 
 void calculateForces() {
-    printf("calc\n");
     double distance, magnitude; 
     Point direction;
-    #pragma omp for schedule(dynamic)
+    //#pragma omp for schedule(dynamic)
     for (int i = 0; i < n - 1; i++) {
         for (int j = i+1; j < n; j++) {
             distance = sqrt( pow((p[i].x - p[j].x), 2) +
@@ -56,13 +55,12 @@ void calculateForces() {
 
 //move the bodies assigned to worker w
 void moveBodies() {
-    printf("move\n");
     Point deltav; //# dv=f/m * DT
     Point deltap; // dp=(v+dv/2) * DT
     Point force; //(0.0, 0.0);
     force.x=0.0;
     force.y=0.0;
-    #pragma omp for schedule(static)
+    //#pragma omp for schedule(static)
     for (int i = 0; i<n; i++) {
         //sum the forces on body i and reset f[*,i]
         for (int k = 0; k<numWorkers; k++) {
@@ -82,6 +80,7 @@ void moveBodies() {
         p[i].x = p[i].x + deltap.x;
         p[i].y = p[i].y + deltap.y;
         force.x = force.y = 0.0;
+        printf("Body %d: x: %f y: %f\n", i, p[i].x, p[i].y);
     } 
 }
 void run(){
@@ -136,7 +135,7 @@ int main(int argc, char* argv[]){
     int steps = stoi(argv[2]);
     numWorkers = stoi(argv[3]);
     printf("%d threads\n", numWorkers);
-    omp_set_num_threads(numWorkers);
+    //omp_set_num_threads(numWorkers);
 
     finish = DT*steps;
 
