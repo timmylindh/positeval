@@ -3,8 +3,6 @@
 #include <iomanip>
 #include <limits>
 
-namespace float32 {
-
 typedef struct {
 	float ** matrix;
 	int cols;
@@ -19,16 +17,21 @@ extern void export_matrix(matrix m, std::string file_path);
 
 using namespace std;
 
-int main() { 
+int main(int argc, char ** argv) { 
 	matrix m1, m2, result;
 
-	m1 = load_matrix("matrices/example.dat");
-	m2 = load_matrix("matrices/example2.dat");
+	if(argc != 4) {
+		std::cout << "error: input parameters are matrix1 matrix2 result" << std::endl;
+		exit(0);
+	}
+		
+	m1 = load_matrix(argv[1]);
+	m2 = load_matrix(argv[2]);
 	
 	result = matrix_mul(m1, m2);
 	
 	print_matrix(result);
-	export_matrix(result, "matrices/result.dat");
+	export_matrix(result, argv[3]);
 
 	return 0;
 }
@@ -89,9 +92,9 @@ void export_matrix(matrix m, std::string file_path) {
 
 	for(int i = 0; i < m.rows; i++) {
 		for(int j = 0; j < m.cols; j++)
-			std::cout << std::setprecision(std::numeric_limits<float>::digits10) << m.matrix[i][j] << " ";
+			file << std::setprecision(14) << m.matrix[i][j] << " ";
 
-		std::cout << std::endl;
+		file << std::endl;
 	}
 
 	file.close();
@@ -127,10 +130,9 @@ void print_matrix(matrix m)  {
 
 	for(int i = 0; i < m.rows; i++) {
 		for(int j = 0; j < m.cols; j++)
-			std::cout << std::setprecision(std::numeric_limits<float>::digits10) << m.matrix[i][j] << " "; //kolla med digits
+			std::cout << std::setprecision(14) << m.matrix[i][j] << " "; //kolla med digits
 
 		std::cout << std::endl;
 	}
 
-}
 }

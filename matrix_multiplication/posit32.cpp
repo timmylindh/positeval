@@ -1,9 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include "../Softposit/source/include/softposit_cpp.h"
 
 typedef struct {
-	double ** matrix;
+	posit32 ** matrix;
 	int cols;
 	int rows;
 } matrix;
@@ -29,7 +30,7 @@ int main(int argc, char ** argv) {
 	
 	result = matrix_mul(m1, m2);
 	
-	print_matrix(result);
+    print_matrix(result);
 	export_matrix(result, argv[3]);
 
 	return 0;
@@ -41,16 +42,16 @@ int main(int argc, char ** argv) {
 matrix create_matrix(int rows, int cols) {
 	matrix m;
 
-	m.matrix = new double*[rows];
+	m.matrix = new posit32 *[rows];
 	m.cols = cols;
 	m.rows = rows;
 
 	for(int i = 0; i<rows; i++)
-		m.matrix[i] = new double[cols];
+		m.matrix[i] = new posit32[cols];
 
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < cols; j++)
-			m.matrix[i][j] = 0;
+			m.matrix[i][j] = p32(0);
 
 	return m;
 }
@@ -71,9 +72,12 @@ matrix load_matrix(std::string path) {
 	file >> cols;
 	m = create_matrix(rows, cols);
 
+    double x;
 	for(int i = 0; i<rows; i++)
-		for(int j = 0; j<cols; j++)
-			file >> m.matrix[i][j];
+		for(int j = 0; j<cols; j++) {
+			file >> x;
+            m.matrix[i][j] = p32(x);
+        }
             
 	file.close();
 	return m;
