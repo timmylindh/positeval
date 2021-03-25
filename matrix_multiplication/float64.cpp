@@ -1,12 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <limits>
 
-namespace float32 {
+namespace float64 {
 
 typedef struct {
-	float ** matrix;
+	double ** matrix;
 	int cols;
 	int rows;
 } matrix;
@@ -15,7 +14,6 @@ extern matrix matrix_mul(matrix m1, matrix m2);
 extern matrix create_matrix(int rows, int cols);
 extern matrix load_matrix(std::string path);
 extern void print_matrix(matrix m);
-extern void export_matrix(matrix m, std::string file_path);
 
 using namespace std;
 
@@ -28,8 +26,7 @@ int main() {
 	result = matrix_mul(m1, m2);
 	
 	print_matrix(result);
-	export_matrix(result, "matrices/result.dat");
-
+	
 	return 0;
 }
 
@@ -39,12 +36,12 @@ int main() {
 matrix create_matrix(int rows, int cols) {
 	matrix m;
 
-	m.matrix = new float*[rows];
+	m.matrix = new double*[rows];
 	m.cols = cols;
 	m.rows = rows;
 
 	for(int i = 0; i<rows; i++)
-		m.matrix[i] = new float[cols];
+		m.matrix[i] = new double[cols];
 
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < cols; j++)
@@ -78,26 +75,6 @@ matrix load_matrix(std::string path) {
 }
 
 /**
- * Export a matrix to file
- */
-void export_matrix(matrix m, std::string file_path) {
-	fstream file;
-
-	file.open(file_path, fstream::out);
-	
-	file << m.rows << " " << m.cols << std::endl;
-
-	for(int i = 0; i < m.rows; i++) {
-		for(int j = 0; j < m.cols; j++)
-			std::cout << std::setprecision(std::numeric_limits<float>::digits10) << m.matrix[i][j] << " ";
-
-		std::cout << std::endl;
-	}
-
-	file.close();
-}
-
-/**
  * Perform matrix multiplication
  **/
 matrix matrix_mul(matrix m1, matrix m2) {
@@ -127,10 +104,11 @@ void print_matrix(matrix m)  {
 
 	for(int i = 0; i < m.rows; i++) {
 		for(int j = 0; j < m.cols; j++)
-			std::cout << std::setprecision(std::numeric_limits<float>::digits10) << m.matrix[i][j] << " "; //kolla med digits
+			std::cout << std::setprecision(std::numeric_limits<double>::digits10) << m.matrix[i][j] << " "; //kolla med digits
 
 		std::cout << std::endl;
 	}
 
 }
+
 }
