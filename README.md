@@ -1,6 +1,6 @@
-# Assessing Differences in Precision with Posit Floating Point Format compared to IEEE 754
+# Comparative tool for comparing IEEE 754 and Posit32 floating point precision with Matrix Multiplication
 
-The purpose of this project is to conduct a comparative study of the precision comparing the 32-bit IEEE 754 and Posit32 floating point representations in high performance computing. For this comparison we use Matrix multiplication.
+This project provides a tool for comparing the IEEE 754 and Posit32 floating point precision in regards to Matrix Multiplication. The tool generates a set of matrices and calculates the Euclidian error compared to the double IEEE 754 64-bit format.
 
 ## Compilation
 
