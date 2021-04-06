@@ -3,8 +3,6 @@
 #include <string>
 #include <stdlib.h>
 #include <math.h>
-#include <chrono>
-#include <random>
 
 using namespace std;
 
@@ -22,8 +20,6 @@ void createMatrix();
 float randVal();
 void printMatrix(string fileName);
 
-std::default_random_engine * generator;
-std::uniform_real_distribution<double> * double_generator;
 
 int main(int argc, char* args[]){
     matrix m;
@@ -32,14 +28,12 @@ int main(int argc, char* args[]){
     string fileName = args[3];
     srand(time(NULL));
 
-    // construct a trivial random generator engine from a time-based seed:
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    generator = new std::default_random_engine(seed);
+    for(int i = 0; i<5; i++){
+        createMatrix();
+        printMatrix(fileName + i);
+    }
 
-    double_generator = new std::uniform_real_distribution<double>((double) -1 * range, (double) range);
 
-    createMatrix();
-    printMatrix(fileName);
 
     return 0; 
 
@@ -61,7 +55,7 @@ void createMatrix(){
 }
 
 float randVal(){
-    return (*double_generator)(*generator);
+    return (-range) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(2*range))); 
 }
 
 void printMatrix(string fileName){
