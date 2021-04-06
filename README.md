@@ -10,14 +10,14 @@ To compile the float32 version of the Matrix multiplication, run the following c
 
 ```
 cd matrix_multiplication/
-g++ float32.cpp -o f32.out
+g++ float32.cpp -o bin/f32.out
 ```
 
 To compile the float64 version:
 
 ```
 cd matrix_multiplication/
-g++ float64.cpp -o f64.out
+g++ float64.cpp -o bin/f64.out
 ```
 
 ### Posit32 Matrix Multiplication
@@ -26,7 +26,7 @@ To compile the posit32 version of the Matrix multiplication the Softposit librar
 
 ```
 cd matrix_multiplication/
-g++ -std=gnu++11 -o p32.out posit32.cpp ../SoftPosit/build/Linux-x86_64-GCC/softposit.a -I../SoftPosit/build/Linux-x86_64-GCC  -O2
+g++ -std=gnu++11 -o bin/p32.out posit32.cpp ../SoftPosit/build/Linux-x86_64-GCC/softposit.a -I../SoftPosit/build/Linux-x86_64-GCC  -O2
 ``` 
 
 ### Matrix generator
@@ -35,7 +35,7 @@ To compile the matrix generator, use the following commands:
 
 ```
 cd matrix_multiplication/
-g++ -o gen.out generateMatrix.cpp
+g++ -o bin/gen.out generateMatrix.cpp
 ``` 
 
 ### Matrix comparator
@@ -44,7 +44,7 @@ To compile the matrix comparator, use the following commands:
 
 ```
 cd matrix_multiplication/
-g++ -o comp.out comparator.cpp
+g++ -o bin/comp.out comparator.cpp
 ``` 
 
 ## Running
