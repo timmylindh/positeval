@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include "../Softposit/source/include/softposit_cpp.h"
+#include "../../Softposit/source/include/softposit_cpp.h"
 
 typedef struct {
 	posit32 ** matrix;

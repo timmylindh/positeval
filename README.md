@@ -4,84 +4,19 @@ The purpose of this project is to conduct a comparative study of the precision c
 
 ## Compilation
 
-### Float32 / Float64 Matrix Multiplication
-
-To compile the float32 version of the Matrix multiplication, run the following commands:
+To compile the nessecary binaries and libraries, issue the following command in *matrix_multiplication/*:
 
 ```
-cd matrix_multiplication/
-g++ float32.cpp -o bin/f32.out
+make compile
 ```
-
-To compile the float64 version:
-
-```
-cd matrix_multiplication/
-g++ float64.cpp -o bin/f64.out
-```
-
-### Posit32 Matrix Multiplication
-
-To compile the posit32 version of the Matrix multiplication the Softposit library has to be linked. Use the following command:
-
-```
-cd matrix_multiplication/
-g++ -std=gnu++11 -o bin/p32.out posit32.cpp ../SoftPosit/build/Linux-x86_64-GCC/softposit.a -I../SoftPosit/build/Linux-x86_64-GCC  -O2
-``` 
-
-### Matrix generator
-
-To compile the matrix generator, use the following commands:
-
-```
-cd matrix_multiplication/
-g++ -o bin/gen.out generateMatrix.cpp
-``` 
-
-### Matrix comparator
-
-To compile the matrix comparator, use the following commands:
-
-```
-cd matrix_multiplication/
-g++ -o bin/comp.out comparator.cpp
-``` 
 
 ## Running
 
-### Matrix Multiplication
-
-To run the matrix multiplication program, issue the following command:
+To run the automated mean error calculations, issue:
 
 ```
-./p32.out [m1] [m2] [result]
+make all RANGE=xx SIZE=yy NUM=zz
 ```
 
-- m1, m2 are the files of which the matrices to multiply reside.
-- result is the resulting file of where to store the matrix.
+This will create *NUM* randomly generated matrices of size *SIZE x SIZE*, where each matrix entry is a value between *-RANGE and RANGE* in the *matrices/in* folder. Each matrix is then multiplied with another, and the resulting matrix is stored in *out/32*, *out/64* and *out/posit*
 
-Change p32.out to the program which is being used.
-
-### Matrix generator
-
-To run the matrix generator program, issue the following command:
-
-```
-./gen.out [range] [size] [result]
-```
-
-- range: a positive integer (x) representing a range from -x to x of which the numbers in the matrix are generated.
-- size: a positive integer (n) representing the size of the matix n X n 
-- result is the resulting file of where to store the matrix.
-
-### Matrix comparator
-
-To run the matrix comparator, use the following command:
-
-```
-./comp.out [m1] [m2]
-``` 
-
-- m1, m2 are the files of which the matrices to compare reside.
-
-The resulting Euclidian norm is returned to stdout.
