@@ -61,7 +61,7 @@ void printMatrix(string fileName){
     printer << matSize << endl;
      for(int i = 0; i<matSize; i++){
         for(int j = 0; j<matSize; j++ ){
-            printer << m.matrix[i][j] << " ";
+            printer << std::setprecision(14) << m.matrix[i][j] << " ";
         }
         printer << endl;
     }

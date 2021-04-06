@@ -27,7 +27,7 @@ int main(int argc, char ** argv) {
     m2 = load_matrix(argv[2]);
 
     result = norm(m1, m2);
-    std::cout << result << endl;
+    std::cout << std::setprecision(14) << result << endl;
 }
 
 /**
