@@ -14,7 +14,8 @@ typedef struct {
     int rows;
 } matrix;
 
-int range, matSize;
+double range;
+int matSize;
 
 matrix m;
 
@@ -27,7 +28,7 @@ std::uniform_real_distribution<double> * double_generator;
 
 int main(int argc, char* args[]){
     matrix m;
-    range= stoi(args[1]); //range
+    range= stod(args[1]); //range
     matSize = stoi(args[2]);
     string fileName = args[3];
     srand(time(NULL));

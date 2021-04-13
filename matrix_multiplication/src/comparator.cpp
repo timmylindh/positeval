@@ -12,11 +12,12 @@ typedef struct {
 
 extern matrix load_matrix(std::string path);
 extern matrix create_matrix(int rows, int cols);
-extern double norm(matrix m1, matrix m2);
+extern double relative_error(matrix m1, matrix m2);
+extern double norm(matrix m64);
 
 int main(int argc, char ** argv) {
     matrix m1, m2;
-    double result;
+    double error, norm_val;
     
     if(argc != 3) {
 		std::cout << "error: input parameters are matrix1 matrix2" << std::endl;
@@ -26,8 +27,10 @@ int main(int argc, char ** argv) {
     m1 = load_matrix(argv[1]);
     m2 = load_matrix(argv[2]);
 
-    result = norm(m1, m2);
-    std::cout << std::setprecision(14) << result << endl;
+    error = relative_error(m1, m2);
+	norm_val = norm(m2);
+	
+    std::cout << std::setprecision(14) << (error / norm_val) << endl;
 }
 
 /**
@@ -74,7 +77,7 @@ matrix create_matrix(int rows, int cols) {
 	return m;
 }
 
-double norm(matrix m1, matrix m2){
+double relative_error(matrix m1, matrix m2) {
     double sum;
 
     sum = 0.0;
@@ -84,4 +87,15 @@ double norm(matrix m1, matrix m2){
             sum += pow(m1.matrix[i][j] - m2.matrix[i][j], 2);
 
     return sqrt(sum);
+}
+
+double norm(matrix m64) {
+	double sum;
+    sum = 0.0;
+
+	for(int i = 0; i<m64.rows; i++)
+        for(int j = 0; j<m64.cols; j++)
+            sum += pow(m64.matrix[i][j], 2);
+			
+	return sqrt(sum);
 }

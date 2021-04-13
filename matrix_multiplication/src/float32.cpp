@@ -30,7 +30,7 @@ int main(int argc, char ** argv) {
 	
 	result = matrix_mul(m1, m2);
 	
-	print_matrix(result);
+	//print_matrix(result);
 	export_matrix(result, argv[3]);
 
 	return 0;

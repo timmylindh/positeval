@@ -1,5 +1,9 @@
 
-all: compile generate multiply
+all: compile generate multiply compare analyze
+
+# Compare matrices
+compare:
+	bash comparator ${RANGE} ${SIZE} ${NUM}
 
 # Multiply matrices
 multiply:
@@ -9,8 +13,16 @@ multiply:
 generate:
 	bash generator ${RANGE} ${SIZE} ${NUM}
 
+# Average Posit
+analyze:
+	bash analyzer ${RANGE} ${SIZE} ${NUM}
+
 # Compile the nessecary binaries
-compile: bin/f32.out bin/f64.out bin/p32.out bin/gen.out bin/comp.out
+compile: bin/f32.out bin/f64.out bin/p32.out bin/gen.out bin/comp.out bin/analyzer.out
+
+# Compile average
+bin/analyzer.out:
+	g++ src/analyzer.cpp -o bin/analyzer.out
 
 # Compile float32
 bin/f32.out:
@@ -40,3 +52,5 @@ bin/comp.out:
 clean:
 	rm -r matrices/in/*
 	rm -r matrices/out/32/* matrices/out/64/* matrices/out/posit/*
+	rm -r matrices/result/32/* matrices/result/posit/*
+	rm -r matrices/error/32/* matrices/error/posit/*
