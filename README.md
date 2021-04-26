@@ -14,7 +14,7 @@ make compile
 
 To run the automated mean error calculations, issue:
 
-    ```
+```
 make all RANGE=xx SIZE=yy NUM=zz
 ```
 
